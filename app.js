@@ -3,6 +3,7 @@ const express = require("express");
 const feedRoutes = require("./routes/feed");
 const authRoutes = require("./routes/auth");
 const bodyparser = require("body-parser");
+
 const app = express();
 const multer = require("multer");
 const filestorage = multer.diskStorage({
@@ -46,14 +47,18 @@ app.use((error, req, res, next) => {
   const status = error.statusCode || 500;
   const message = error.message;
   const data = error.data;
-  res.status(status).json({ message: message ,data:data});
+  res.status(status).json({ message: message, data: data });
 });
+
 mongoose
   .connect(
     "mongodb+srv://kush:5XCZW5ADqHZDu6Ay@cluster0.1qgxj1a.mongodb.net/messages?retryWrites=true&w=majority&appName=Cluster0 "
   )
   .then((result) => {
-    app.listen(8080);
-    console.log("connceted");
+    const server = app.listen(8080);
+    const io = require("./socket").init(server);
+    io.on("conncetion", (socket) => {
+      console.log("*********client connceted");
+    });
   })
   .catch((err) => console.log(err));
