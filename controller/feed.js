@@ -137,11 +137,6 @@ exports.updatePost = async (req, res, next) => {
   }
 };
 
-const clearImage = (filePath) => {
-  filePath = path.join(__dirname, "..", filePath);
-  fs.unlink(filePath, (err) => console.log(err));
-};
-
 exports.deletePost = async (req, res, next) => {
   const postId = req.params.postId;
   try {
@@ -157,7 +152,7 @@ exports.deletePost = async (req, res, next) => {
       throw error;
     }
     clearImage(post.imageUrl);
-    const result = await Post.findByIdAndDelete(postId);
+    await Post.findByIdAndDelete(postId);
     const user = await User.findById(req.userId);
     user.posts.pull(postId);
     await user.save();
