@@ -3,8 +3,9 @@ import { expect } from "chai";
 // const {expect}=require('chai')
 import sinon from "sinon";
 // const jwt = require("jsonwebtoken");
-const authMiddleware = require("../middleware/is-auth");
-// import * as authMiddleware from "../middleware/is-auth";
+// const authMiddleware = require("../middleware/is-auth.js");
+import {authMiddleware} from "../middleware/is-auth.js";
+import { jwt } from "jsonwebtoken";
 
 describe("auth middleware", function () {
   it("should throw error is no authorization header is present", function () {

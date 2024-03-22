@@ -1,9 +1,15 @@
-const expect = require('chai').expect;
-const sinon = require('sinon');
-const mongoose = require('mongoose');
+// const expect = require('chai').expect;
+// const sinon = require('sinon');
+// const mongoose = require('mongoose');
+import mongoose from 'mongoose';
+import sinon from "sinon";
+import { expect } from "chai";
 
-const User = require('../models/user');
-const AuthController = require('../controllers/is-auth');
+
+// const User = require('../models/user');
+import {User} from '../models/user.js'
+import {AuthController} from "../controllers/is-auth.js";
+
 
 describe('Auth Controller', function() {
   before(function(done) {
